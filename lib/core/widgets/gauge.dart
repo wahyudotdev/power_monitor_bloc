@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
+import '../utils/app_colors.dart';
+import '../utils/view.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class Gauge extends StatelessWidget {

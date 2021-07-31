@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:power_monitor_app/features/history/presentation/pages/history_detail_page.dart';
-import 'package:power_monitor_app/features/login/presentation/pages/login_page.dart';
-import 'package:power_monitor_app/features/menu_page.dart';
-import 'package:power_monitor_app/features/register/presentation/pages/register_page.dart';
+import 'features/history/presentation/pages/history_detail_page.dart';
+import 'features/login/presentation/pages/login_page.dart';
+import 'features/menu_page.dart';
+import 'features/register/presentation/pages/register_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

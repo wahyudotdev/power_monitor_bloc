@@ -1,4 +1,4 @@
-import 'package:power_monitor_app/features/profile/presentation/pages/profile_page.dart';
+import 'profile/presentation/pages/profile_page.dart';
 
 import '../core/utils/app_colors.dart';
 import '../core/utils/view.dart';

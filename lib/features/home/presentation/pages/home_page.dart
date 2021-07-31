@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
-import 'package:power_monitor_app/core/widgets/gauge.dart';
-import 'package:power_monitor_app/core/widgets/toggle.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/view.dart';
+import '../../../../core/widgets/gauge.dart';
+import '../../../../core/widgets/toggle.dart';
 
 class HomePage extends StatefulWidget {
   @override

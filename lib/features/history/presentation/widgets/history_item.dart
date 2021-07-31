@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/view.dart';
 
 class HistoryItem extends StatelessWidget {
   final VoidCallback? action;

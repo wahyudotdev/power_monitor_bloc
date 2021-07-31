@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
-import 'package:power_monitor_app/features/login/presentation/pages/login_page.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/view.dart';
+import '../../../login/presentation/pages/login_page.dart';
 
 class ProfilePage extends StatelessWidget {
   Widget _title() {

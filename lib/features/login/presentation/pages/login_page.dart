@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
-import 'package:power_monitor_app/features/register/presentation/pages/register_page.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/view.dart';
+import '../../../register/presentation/pages/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   final _email = TextEditingController();
@@ -93,7 +93,7 @@ class LoginPage extends StatelessWidget {
         ),
       ),
       child: TextButton(
-        onPressed: () => Navigator.of(context).pushReplacementNamed('/menu'),
+        onPressed: null,
         child: Text('MASUK'),
         style: TextButton.styleFrom(
           tapTargetSize: MaterialTapTargetSize.padded,

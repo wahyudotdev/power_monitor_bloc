@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
+import '../utils/app_colors.dart';
 
 class Toggle extends StatelessWidget {
   final String hint;

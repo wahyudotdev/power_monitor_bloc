@@ -12,3 +12,9 @@ class CacheFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class UserRegisterFailure extends Failure {
+  static const MESSAGE = 'Gagal mendaftarkan pengguna baru';
+  @override
+  List<Object?> get props => [];
+}
