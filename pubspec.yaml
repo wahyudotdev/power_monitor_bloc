@@ -23,23 +23,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # Core dependency
-  equatable: ^2.0.3
-  flutter_bloc: ^7.0.1
-  dartz: ^0.10.0-nullsafety.2
-  clock: ^1.1.0
-  get_it: ^7.2.0
   data_connection_checker:
     git:
       url: https://github.com/bobanalappat/data_connection_checker.git
-  # FlutterFire
-  firebase_core: "^1.4.0"
+  clock: ^1.1.0
+  dartz: ^0.10.0-nullsafety.2
+  equatable: ^2.0.3
   firebase_auth: ^3.0.1
+  firebase_core: ^1.4.0
   firebase_messaging: ^10.0.4
-
-  # Widget stuff
-  syncfusion_flutter_gauges: ^19.2.49
+  flutter_bloc: ^7.0.1
+  flutter_easyloading: ^3.0.0
   flutter_svg: ^0.22.0
+  get_it: ^7.2.0
+  syncfusion_flutter_gauges: ^19.2.49
 
 dev_dependencies:
   flutter_test:
@@ -47,7 +44,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
 

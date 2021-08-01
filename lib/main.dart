@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'route_generator.dart';
 import 'injection_container.dart' as di;
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: '/',
+      builder: EasyLoading.init(),
     );
   }
 }

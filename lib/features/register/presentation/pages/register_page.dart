@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
@@ -145,21 +145,18 @@ class RegisterPage extends StatelessWidget {
           ),
           width: double.infinity,
           alignment: Alignment.topLeft,
-          child: Focus(
-            onFocusChange: (_) => _formValidationBloc.add(ValidateForm()),
-            child: TextField(
-                decoration: InputDecoration(
-                    hintText: 'Konfirmasi password',
-                    labelText: state is PasswordValidationState
-                        ? state.message
-                        : null),
-                obscureText: true,
-                controller: _confirmPassword,
-                onChanged: (pass) => _formValidationBloc.add(
-                      ValidateConfirmPassword(
-                          password: _password.text, confirmPassword: pass),
-                    ),
-                onSubmitted: (_) => _formValidationBloc.add(ValidateForm())),
+          child: TextField(
+            decoration: InputDecoration(
+                hintText: 'Konfirmasi password',
+                labelText:
+                    state is PasswordValidationState ? state.message : null),
+            obscureText: true,
+            controller: _confirmPassword,
+            onChanged: (pass) => _formValidationBloc.add(
+              ValidateConfirmPassword(
+                  password: _password.text, confirmPassword: pass),
+            ),
+            onSubmitted: (_) => _formValidationBloc.add(ValidateForm()),
           ),
         );
       },
@@ -250,46 +247,64 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _form(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _formValidationBloc,
-      child: SliverToBoxAdapter(
-        child: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              height: View.y * 20,
-              color: AppColors.primary,
-              child: SvgPicture.asset(
-                'assets/form_decoration.svg',
-                fit: BoxFit.fill,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: View.y * 10),
-              width: double.infinity,
-              child: Container(
+    return BlocListener<RegisterBloc, RegisterState>(
+      listener: (context, state) {
+        if (state is RegisterLoading) {
+          EasyLoading.show();
+        }
+        if (state is RegisterSuccess) {
+          EasyLoading.dismiss();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
+          Navigator.of(context).pop();
+        }
+        if (state is RegisterFail) {
+          EasyLoading.dismiss();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
+      child: BlocProvider(
+        create: (context) => _formValidationBloc,
+        child: SliverToBoxAdapter(
+          child: Stack(
+            children: [
+              Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(View.x * 5),
-                    topRight: Radius.circular(View.x * 5),
+                height: View.y * 20,
+                color: AppColors.primary,
+                child: SvgPicture.asset(
+                  'assets/form_decoration.svg',
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: View.y * 10),
+                width: double.infinity,
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(View.x * 5),
+                      topRight: Radius.circular(View.x * 5),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      _loginTitle(),
+                      _nameField(),
+                      _emailField(),
+                      _passwordField(),
+                      _confirmPasswordField(),
+                      _registerButton(context),
+                      _loginButton(context),
+                    ],
                   ),
                 ),
-                child: Column(
-                  children: [
-                    _loginTitle(),
-                    _nameField(),
-                    _emailField(),
-                    _passwordField(),
-                    _confirmPasswordField(),
-                    _registerButton(context),
-                    _loginButton(context),
-                  ],
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

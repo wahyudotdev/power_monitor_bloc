@@ -9,12 +9,24 @@ abstract class RegisterState extends Equatable {
 
 class RegisterInitial extends RegisterState {}
 
-class RegisterSuccess extends RegisterState {}
+class RegisterLoading extends RegisterState {}
+
+class RegisterSuccess extends RegisterState {
+  final String message;
+
+  RegisterSuccess({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
 
 class RegisterFail extends RegisterState {
   final String message;
 
   RegisterFail({required this.message});
+
+  @override
+  List<Object> get props => [message];
 }
 
 class EmailInvalid extends RegisterState {
