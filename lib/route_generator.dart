@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'core/auth/presentation/pages/login_page.dart';
 import 'features/history/presentation/pages/history_detail_page.dart';
-import 'features/login/presentation/pages/login_page.dart';
 import 'features/menu_page.dart';
 import 'features/register/presentation/pages/register_page.dart';
 
@@ -10,8 +10,6 @@ class RouteGenerator {
     final args = settings.arguments;
 
     switch (settings.name) {
-      case '/':
-        return MaterialPageRoute(builder: (_) => LoginPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/register':

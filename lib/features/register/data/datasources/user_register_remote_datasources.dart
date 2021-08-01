@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/error/exception.dart';
-import '../../../../core/login/domain/entities/user_auth_info.dart';
+import '../../../../core/auth/domain/entities/user_auth_info.dart';
 import '../../domain/entities/user_form.dart';
 
 abstract class UserRegisterRemoteDataSource {

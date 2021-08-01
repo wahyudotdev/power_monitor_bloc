@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
-import '../../../register/presentation/pages/register_page.dart';
+import '../../../../injection_container.dart';
 
 class LoginPage extends StatelessWidget {
+  final _authBloc = sl<AuthBloc>();
   final _email = TextEditingController();
   final _password = TextEditingController();
 
@@ -76,28 +80,54 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _loginButton(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(
-        top: View.x * 10,
-        left: View.x * 5,
-        right: View.x * 5,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.button,
-          width: 1,
-        ),
-        borderRadius: BorderRadius.circular(
-          View.x * 2,
-        ),
-      ),
-      child: TextButton(
-        onPressed: null,
-        child: Text('MASUK'),
-        style: TextButton.styleFrom(
-          tapTargetSize: MaterialTapTargetSize.padded,
-        ),
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoading) {
+          EasyLoading.show();
+        }
+        if (state is UserAuthenticated) {
+          EasyLoading.dismiss();
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/menu', (route) => false);
+        }
+        if (state is AuthenticationFail) {
+          EasyLoading.dismiss();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
+      child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(
+              top: View.x * 10,
+              left: View.x * 5,
+              right: View.x * 5,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColors.button,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(
+                View.x * 2,
+              ),
+            ),
+            child: TextButton(
+              onPressed: () => _authBloc.add(
+                SignInEvent(
+                  email: _email.text,
+                  password: _password.text,
+                ),
+              ),
+              child: Text('MASUK'),
+              style: TextButton.styleFrom(
+                tapTargetSize: MaterialTapTargetSize.padded,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -121,9 +151,7 @@ class LoginPage extends StatelessWidget {
         ),
       ),
       child: TextButton(
-        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => RegisterPage(),
-        )),
+        onPressed: () => Navigator.of(context).pushNamed('/register'),
         child: Text(
           'DAFTAR',
           style: TextStyle(
@@ -194,15 +222,18 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     View().init(context);
-    return Container(
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: CustomScrollView(
-            slivers: [
-              _title(),
-              _form(context),
-            ],
+    return BlocProvider(
+      create: (context) => _authBloc,
+      child: Container(
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            body: CustomScrollView(
+              slivers: [
+                _title(),
+                _form(context),
+              ],
+            ),
           ),
         ),
       ),

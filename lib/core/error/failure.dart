@@ -19,3 +19,15 @@ class UserRegisterFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class UserLoginFailure extends Failure {
+  static const MESSAGE = 'Login gagal';
+  @override
+  List<Object?> get props => [];
+}
+
+class UserUpdateFailure extends Failure {
+  static const MESSAGE = 'Gagal mengubah data pengguna';
+  @override
+  List<Object?> get props => [];
+}

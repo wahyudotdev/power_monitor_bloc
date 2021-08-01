@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/error/failure.dart';
-import '../../../../core/login/domain/entities/user_auth_info.dart';
+import '../../../../core/auth/domain/entities/user_auth_info.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../entities/user_form.dart';
 import '../repositories/user_register_repository.dart';

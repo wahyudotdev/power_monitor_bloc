@@ -1,5 +1,5 @@
 import '../../../../core/error/exception.dart';
-import '../../../../core/login/domain/entities/user_auth_info.dart';
+import '../../../../core/auth/domain/entities/user_auth_info.dart';
 import '../../../../core/network/network_info.dart';
 import '../datasources/user_register_remote_datasources.dart';
 import '../../domain/entities/user_form.dart';
