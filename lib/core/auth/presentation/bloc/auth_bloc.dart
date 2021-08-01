@@ -49,26 +49,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
 
     if (event is GetUserEvent) {
-      print('get user event');
       yield AuthLoading();
       final result = await getUser(NoParams());
       yield* result.fold((failure) async* {
         yield AuthenticationFail(message: 'Gagal mengautentikasi user');
       }, (userInfo) async* {
+        currentUser = userInfo;
+
         yield UserAuthenticated(userAuthInfo: userInfo);
       });
     }
 
     if (event is SignOutEvent) {
-      print('kudune signout');
       yield AuthLoading();
       final result = await signOut(NoParams());
-      yield* result.fold((failure) async* {
-        // if (failure is ServerFailure) {
-        //   yield AuthenticationFail(message: ServerFailure.MESSAGE);
-        // }
-      }, (userInfo) async* {
+      yield* result.fold((failure) async* {}, (userInfo) async* {
         yield LogoutSuccess();
+      });
+    }
+
+    if (event is ChangeNameEvent) {
+      yield AuthLoading();
+      final result = await changeName(ChangeNameParams(name: event.name));
+      yield* result.fold((failure) async* {
+        yield UpdateFailure(message: 'Gagal mengubah nama');
+      }, (authInfo) async* {
+        currentUser = authInfo;
+        yield UpdatedProfile(
+            authInfo: authInfo, message: 'Berhasil mengubah nama');
       });
     }
   }

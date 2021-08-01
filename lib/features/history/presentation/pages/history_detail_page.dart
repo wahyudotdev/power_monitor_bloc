@@ -82,9 +82,9 @@ class HistoryDetailPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Toggle(enabled: false, hint: 'Lampu 1'),
-                  Toggle(enabled: true, hint: 'Lampu 2'),
-                  Toggle(enabled: true, hint: 'Lampu 3'),
+                  Toggle(enabled: false, hint: 'Beban 1'),
+                  Toggle(enabled: true, hint: 'Beban 2'),
+                  Toggle(enabled: true, hint: 'Beban 3'),
                 ],
               ),
             ),

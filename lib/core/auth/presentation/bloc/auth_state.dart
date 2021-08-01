@@ -35,3 +35,20 @@ class LogoutSuccess extends AuthState {
   @override
   List<Object> get props => [];
 }
+
+class UpdatedProfile extends AuthState {
+  final UserAuthInfo authInfo;
+  final String message;
+  UpdatedProfile({
+    required this.authInfo,
+    required this.message,
+  });
+  @override
+  List<Object> get props => [authInfo];
+}
+
+class UpdateFailure extends AuthState {
+  final String message;
+
+  UpdateFailure({required this.message});
+}

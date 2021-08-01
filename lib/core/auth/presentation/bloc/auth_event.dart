@@ -17,3 +17,9 @@ class SignInEvent extends AuthEvent {
 class GetUserEvent extends AuthEvent {}
 
 class SignOutEvent extends AuthEvent {}
+
+class ChangeNameEvent extends AuthEvent {
+  final String name;
+
+  ChangeNameEvent({required this.name});
+}

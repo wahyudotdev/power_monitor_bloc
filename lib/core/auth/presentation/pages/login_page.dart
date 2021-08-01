@@ -5,12 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
-import '../../../../injection_container.dart';
 
 class LoginPage extends StatelessWidget {
-  final _authBloc = sl<AuthBloc>();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
+  final _email = TextEditingController(text: 'feby@gmail.com');
+  final _password = TextEditingController(text: 'kenari123');
 
   Widget _title() {
     return SliverToBoxAdapter(
@@ -82,6 +80,7 @@ class LoginPage extends StatelessWidget {
   Widget _loginButton(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
+        print(state);
         if (state is AuthLoading) {
           EasyLoading.show();
         }
@@ -115,7 +114,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             child: TextButton(
-              onPressed: () => _authBloc.add(
+              onPressed: () => BlocProvider.of<AuthBloc>(context).add(
                 SignInEvent(
                   email: _email.text,
                   password: _password.text,
@@ -222,18 +221,15 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     View().init(context);
-    return BlocProvider(
-      create: (context) => _authBloc,
-      child: Container(
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.white,
-            body: CustomScrollView(
-              slivers: [
-                _title(),
-                _form(context),
-              ],
-            ),
+    return Container(
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: CustomScrollView(
+            slivers: [
+              _title(),
+              _form(context),
+            ],
           ),
         ),
       ),

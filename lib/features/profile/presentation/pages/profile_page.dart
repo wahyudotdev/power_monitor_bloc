@@ -5,10 +5,75 @@ import 'package:flutter_svg/svg.dart';
 import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
-import '../../../../injection_container.dart';
 
 class ProfilePage extends StatelessWidget {
-  final _authBloc = sl<AuthBloc>();
+  Widget _changeNameDialog(BuildContext context) {
+    final name = TextEditingController();
+    return AlertDialog(
+      content: Container(
+        width: double.infinity,
+        height: View.y * 23,
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Masukkan nama',
+              ),
+              controller: name,
+            ),
+            Container(
+              margin: EdgeInsets.only(top: View.y * 3),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.all(View.x * 2),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: AppColors.button,
+                        borderRadius: BorderRadius.circular(View.x * 2),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          BlocProvider.of<AuthBloc>(context)
+                              .add(ChangeNameEvent(name: name.text));
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Simpan',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.all(View.x * 2),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(View.x * 2),
+                      ),
+                      child: TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(
+                          'Batal',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _title() {
     return SliverToBoxAdapter(
       child: Container(
@@ -90,45 +155,43 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _authBloc,
-      child: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          print(state);
-          if (state is AuthLoading) {
-            EasyLoading.show();
-          }
-          if (state is LogoutSuccess) {
-            EasyLoading.dismiss();
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/login', (route) => false);
-          }
-        },
-        child: Container(
-          color: AppColors.primary,
-          child: CustomScrollView(
-            slivers: [
-              _title(),
-              _profilePageItem(
-                icon: Icons.person,
-                action: () => null,
-                hint: 'Ubah nama',
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        print(state);
+        if (state is AuthLoading) {
+          EasyLoading.show();
+        }
+        if (state is LogoutSuccess) {
+          EasyLoading.dismiss();
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/login', (route) => false);
+        }
+      },
+      child: Container(
+        color: AppColors.primary,
+        child: CustomScrollView(
+          slivers: [
+            _title(),
+            _profilePageItem(
+              icon: Icons.person,
+              action: () => showDialog(
+                context: context,
+                builder: (context) => _changeNameDialog(context),
               ),
-              _profilePageItem(
-                icon: Icons.lock,
-                action: () => null,
-                hint: 'Ganti password',
-              ),
-              _profilePageItem(
-                icon: Icons.logout,
-                action: () {
-                  print('add signout event');
-                  _authBloc.add(SignOutEvent());
-                },
-                hint: 'Keluar',
-              ),
-            ],
-          ),
+              hint: 'Ubah nama',
+            ),
+            _profilePageItem(
+              icon: Icons.lock,
+              action: () => null,
+              hint: 'Ganti password',
+            ),
+            _profilePageItem(
+              icon: Icons.logout,
+              action: () =>
+                  BlocProvider.of<AuthBloc>(context).add(SignOutEvent()),
+              hint: 'Keluar',
+            ),
+          ],
         ),
       ),
     );

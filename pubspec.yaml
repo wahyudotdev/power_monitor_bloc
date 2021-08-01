@@ -23,19 +23,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  # Core
   data_connection_checker:
     git:
       url: https://github.com/bobanalappat/data_connection_checker.git
   clock: ^1.1.0
   dartz: ^0.10.0-nullsafety.2
   equatable: ^2.0.3
+  flutter_bloc: ^7.1.0
+  get_it: ^7.2.0
+
+  # Firebase
   firebase_auth: ^3.0.1
   firebase_core: ^1.4.0
   firebase_messaging: ^10.0.4
-  flutter_bloc: ^7.0.1
+  firebase_database: ^7.1.2
+
+  # Widget
   flutter_easyloading: ^3.0.0
-  flutter_svg: ^0.22.0
-  get_it: ^7.2.0
+  flutter_svg: ^0.22.0  
   syncfusion_flutter_gauges: ^19.2.49
 
 dev_dependencies:
