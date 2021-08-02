@@ -80,7 +80,6 @@ class LoginPage extends StatelessWidget {
   Widget _loginButton(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        print(state);
         if (state is AuthLoading) {
           EasyLoading.show();
         }

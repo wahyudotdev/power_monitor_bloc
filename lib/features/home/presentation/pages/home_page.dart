@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
 import 'package:power_monitor_app/features/home/presentation/bloc/realtime_bloc.dart';
+import 'package:power_monitor_app/features/home/presentation/widgets/set_max_dialog.dart';
 import 'package:power_monitor_app/injection_container.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
@@ -77,6 +78,7 @@ class _HomePageState extends State<HomePage> {
     required BuildContext context,
     required String symbol,
     required String hint,
+    required String path,
   }) {
     List<Color> boxSelected = [AppColors.secondary, AppColors.secondaryDark];
     List<Color> boxNotSelected = [
@@ -85,14 +87,24 @@ class _HomePageState extends State<HomePage> {
     ];
     return Expanded(
       flex: 1,
-      child: InkWell(
+      child: GestureDetector(
         onTap: () {
           setState(() {
             selectedBox = symbol;
             BlocProvider.of<RealtimeBloc>(context)
                 .add(RefreshRealtimeDataEvent());
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Klik tahan untuk setting max $hint'),
+              duration: Duration(milliseconds: 500),
+            ));
           });
         },
+        onLongPress: () => showDialog(
+          context: context,
+          builder: (context) => SetMaxDialog(
+            path: path,
+          ),
+        ),
         child: Container(
           margin: EdgeInsets.all(View.x * 2),
           decoration: BoxDecoration(
@@ -151,16 +163,19 @@ class _HomePageState extends State<HomePage> {
                   context: context,
                   symbol: 'V',
                   hint: 'Tegangan',
+                  path: 'voltTh',
                 ),
                 _statusBoxItem(
                   context: context,
                   symbol: 'I',
                   hint: 'Arus',
+                  path: 'currentTh',
                 ),
                 _statusBoxItem(
                   context: context,
                   symbol: 'P',
                   hint: 'Daya',
+                  path: 'powerTh',
                 ),
               ],
             ),
@@ -170,8 +185,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _gaugeWidget(
-      {double? value, double? maxValue, String? hint, String? notation}) {
+  Widget _gaugeWidget({
+    double? value,
+    double? maxValue,
+    String? hint,
+    String? notation,
+  }) {
     return Expanded(
       flex: 3,
       child: Container(
@@ -188,7 +207,6 @@ class _HomePageState extends State<HomePage> {
   Widget _gauge() {
     return BlocBuilder<RealtimeBloc, RealtimeState>(
       builder: (context, state) {
-        print(state);
         if (state is RealtimeInitial) {
           BlocProvider.of<RealtimeBloc>(context).add(ListenRealtimeData());
         }
@@ -229,17 +247,23 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 Toggle(
-                    enabled:
-                        state is RealtimeDataLoaded ? state.data.load1 : false,
-                    hint: 'Beban 1'),
+                  enabled:
+                      state is RealtimeDataLoaded ? state.data.load1 : false,
+                  hint: 'Beban 1',
+                  path: 'load1',
+                ),
                 Toggle(
-                    enabled:
-                        state is RealtimeDataLoaded ? state.data.load2 : false,
-                    hint: 'Beban 2'),
+                  enabled:
+                      state is RealtimeDataLoaded ? state.data.load2 : false,
+                  hint: 'Beban 2',
+                  path: 'load2',
+                ),
                 Toggle(
-                    enabled:
-                        state is RealtimeDataLoaded ? state.data.load3 : false,
-                    hint: 'Beban 3'),
+                  enabled:
+                      state is RealtimeDataLoaded ? state.data.load3 : false,
+                  hint: 'Beban 3',
+                  path: 'load3',
+                ),
               ],
             ),
           ),

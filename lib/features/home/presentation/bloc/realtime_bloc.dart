@@ -35,6 +35,14 @@ class RealtimeBloc extends Bloc<RealtimeEvent, RealtimeState> {
     if (event is RefreshRealtimeDataEvent) {
       yield RealtimeDataLoaded(data: _status!);
     }
+
+    if (event is ToggleLoadEvent) {
+      await repository.toggleLoadState(event.load);
+    }
+
+    if (event is SetMaxValueEvent) {
+      await repository.setMaxValue(path: event.path, value: event.value);
+    }
   }
 
   @override

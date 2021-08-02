@@ -13,8 +13,24 @@ class DeviceRealtimeRepositoryImpl implements DeviceRealtimeRepository {
   }
 
   @override
-  Future<Either<Failure, void>> toggleLoadState(String load) {
-    // TODO: implement toggleLoadState
-    throw UnimplementedError();
+  Future<Either<Failure, void>> toggleLoadState(String load) async {
+    try {
+      final state = await db.reference().child('/realtime').child(load).get();
+      await db.reference().child('/realtime').child(load).set(!state!.value);
+      return Right(null);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> setMaxValue(
+      {required String path, required double value}) async {
+    try {
+      await db.reference().child('/realtime').child(path).set(value);
+      return Right(null);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
   }
 }
