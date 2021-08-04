@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:power_monitor_app/features/home/data/models/device_realtime_status_model.dart';
-import 'package:power_monitor_app/features/home/domain/entities/device_status.dart';
-import 'package:power_monitor_app/features/home/domain/repositories/device_realtime_repository.dart';
+import '../../data/models/device_realtime_status_model.dart';
+import '../../domain/entities/device_status.dart';
+import '../../domain/repositories/device_realtime_repository.dart';
 
 part 'realtime_event.dart';
 part 'realtime_state.dart';

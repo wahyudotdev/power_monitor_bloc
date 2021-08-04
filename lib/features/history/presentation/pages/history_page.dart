@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:power_monitor_app/features/history/presentation/bloc/history_bloc.dart';
-import 'package:power_monitor_app/injection_container.dart';
+import '../bloc/history_bloc.dart';
+import '../../../../injection_container.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 import '../widgets/history_item.dart';

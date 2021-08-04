@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:power_monitor_app/core/error/failure.dart';
-import 'package:power_monitor_app/features/register/domain/entities/user_form.dart';
-import 'package:power_monitor_app/features/register/domain/usecases/register_user.dart';
+import '../../../../../core/error/failure.dart';
+import '../../../domain/entities/user_form.dart';
+import '../../../domain/usecases/register_user.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';

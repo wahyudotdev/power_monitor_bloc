@@ -1,4 +1,4 @@
-import 'package:power_monitor_app/features/home/domain/entities/device_status.dart';
+import '../../domain/entities/device_status.dart';
 
 class DeviceRealtimStatusModel extends DeviceRealtimeStatus {
   final double volt;

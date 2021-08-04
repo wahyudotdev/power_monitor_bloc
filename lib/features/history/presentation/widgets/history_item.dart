@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:power_monitor_app/features/history/domain/entities/history.dart';
+import '../../domain/entities/history.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 import 'package:intl/intl.dart';

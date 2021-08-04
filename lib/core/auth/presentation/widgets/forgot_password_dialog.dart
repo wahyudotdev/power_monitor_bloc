@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
+import '../bloc/auth_bloc.dart';
+import '../../../utils/app_colors.dart';
+import '../../../utils/view.dart';
 
 class ForgotPasswordDialog extends StatelessWidget {
   const ForgotPasswordDialog({Key? key}) : super(key: key);

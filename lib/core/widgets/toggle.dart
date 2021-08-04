@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:power_monitor_app/features/home/presentation/bloc/realtime_bloc.dart';
-import 'package:power_monitor_app/injection_container.dart';
+import '../../features/home/presentation/bloc/realtime_bloc.dart';
+import '../../injection_container.dart';
 import '../utils/app_colors.dart';
 
 class Toggle extends StatelessWidget {

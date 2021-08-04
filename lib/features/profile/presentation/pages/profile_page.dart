@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
-import 'package:power_monitor_app/features/profile/presentation/widgets/change_name_dialog.dart';
-import 'package:power_monitor_app/features/profile/presentation/widgets/change_password_dialog.dart';
+import '../../../../core/auth/presentation/bloc/auth_bloc.dart';
+import '../widgets/change_name_dialog.dart';
+import '../widgets/change_password_dialog.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 

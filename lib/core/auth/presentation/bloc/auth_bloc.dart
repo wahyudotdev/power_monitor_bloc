@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:power_monitor_app/core/auth/domain/entities/user_auth_info.dart';
-import 'package:power_monitor_app/core/auth/domain/usecases/request_password.dart';
-import 'package:power_monitor_app/core/auth/domain/usecases/usecases.dart';
-import 'package:power_monitor_app/core/error/failure.dart';
-import 'package:power_monitor_app/core/usecases/no_params.dart';
+import '../../domain/entities/user_auth_info.dart';
+import '../../domain/usecases/request_password.dart';
+import '../../domain/usecases/usecases.dart';
+import '../../../error/failure.dart';
+import '../../../usecases/no_params.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

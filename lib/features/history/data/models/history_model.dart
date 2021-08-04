@@ -1,4 +1,4 @@
-import 'package:power_monitor_app/features/history/domain/entities/history.dart';
+import '../../domain/entities/history.dart';
 
 class HistoryModel extends History {
   final double volt;

@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:power_monitor_app/features/history/domain/repositories/history_repository.dart';
+import '../../domain/repositories/history_repository.dart';
 
 class HistoryRepositoryImpl implements HistoryRepository {
   final FirebaseDatabase db;

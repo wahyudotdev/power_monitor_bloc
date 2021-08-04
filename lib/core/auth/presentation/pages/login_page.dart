@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
-import 'package:power_monitor_app/core/auth/presentation/widgets/forgot_password_dialog.dart';
+import '../bloc/auth_bloc.dart';
+import '../widgets/forgot_password_dialog.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 

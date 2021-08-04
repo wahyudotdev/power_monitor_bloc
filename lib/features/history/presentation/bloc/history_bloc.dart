@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:power_monitor_app/features/history/data/models/history_model.dart';
-import 'package:power_monitor_app/features/history/domain/entities/history.dart';
-import 'package:power_monitor_app/features/history/domain/repositories/history_repository.dart';
+import '../../data/models/history_model.dart';
+import '../../domain/entities/history.dart';
+import '../../domain/repositories/history_repository.dart';
 
 part 'history_event.dart';
 part 'history_state.dart';

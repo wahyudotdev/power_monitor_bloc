@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
-import 'package:power_monitor_app/features/home/presentation/bloc/realtime_bloc.dart';
-import 'package:power_monitor_app/injection_container.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/view.dart';
+import '../bloc/realtime_bloc.dart';
+import '../../../../injection_container.dart';
 
 class SetMaxDialog extends StatelessWidget {
   final String path;

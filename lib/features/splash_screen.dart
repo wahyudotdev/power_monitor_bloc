@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
-import 'package:power_monitor_app/core/utils/app_colors.dart';
-import 'package:power_monitor_app/core/utils/view.dart';
+import '../core/auth/presentation/bloc/auth_bloc.dart';
+import '../core/utils/app_colors.dart';
+import '../core/utils/view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

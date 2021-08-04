@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:power_monitor_app/core/error/failure.dart';
-import 'package:power_monitor_app/core/auth/domain/entities/user_auth_info.dart';
+import '../../../error/failure.dart';
+import '../entities/user_auth_info.dart';
 
 abstract class UserAuthRepository {
   Future<Either<Failure, UserAuthInfo>> signIn(

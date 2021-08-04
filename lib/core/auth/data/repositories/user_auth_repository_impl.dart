@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:power_monitor_app/core/auth/domain/entities/user_auth_info.dart';
+import '../../domain/entities/user_auth_info.dart';
 import 'package:dartz/dartz.dart';
-import 'package:power_monitor_app/core/auth/domain/repositories/user_auth_repository.dart';
-import 'package:power_monitor_app/core/error/failure.dart';
-import 'package:power_monitor_app/core/network/network_info.dart';
+import '../../domain/repositories/user_auth_repository.dart';
+import '../../../error/failure.dart';
+import '../../../network/network_info.dart';
 
 class UserAuthRepositoryImpl implements UserAuthRepository {
   final NetworkInfo networkInfo;

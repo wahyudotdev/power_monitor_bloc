@@ -1,7 +1,7 @@
-import 'package:power_monitor_app/core/auth/domain/repositories/user_auth_repository.dart';
-import 'package:power_monitor_app/core/error/failure.dart';
+import '../repositories/user_auth_repository.dart';
+import '../../../error/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:power_monitor_app/core/usecases/usecase.dart';
+import '../../../usecases/usecase.dart';
 
 class ChangePassword extends UseCase<void, ChangePasswordParams> {
   final UserAuthRepository repository;

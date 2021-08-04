@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:power_monitor_app/core/auth/domain/entities/user_auth_info.dart';
-import 'package:power_monitor_app/core/auth/domain/repositories/user_auth_repository.dart';
-import 'package:power_monitor_app/core/error/failure.dart';
-import 'package:power_monitor_app/core/usecases/usecase.dart';
+import '../entities/user_auth_info.dart';
+import '../repositories/user_auth_repository.dart';
+import '../../../error/failure.dart';
+import '../../../usecases/usecase.dart';
 
 class SignIn extends UseCase<UserAuthInfo, AuthParams> {
   final UserAuthRepository repository;
