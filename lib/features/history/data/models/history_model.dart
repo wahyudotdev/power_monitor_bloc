@@ -17,7 +17,8 @@ class HistoryModel extends History {
     final i = (map['current'] as num).toDouble();
     final p = (map['power'] as num).toDouble();
     final t =
-        DateTime.fromMillisecondsSinceEpoch((int.parse(map['time']) * 1000));
+        DateTime.fromMillisecondsSinceEpoch((int.parse(map['time']) * 1000))
+            .toLocal();
     return HistoryModel(volt: v, current: i, power: p, time: t);
   }
 

@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:power_monitor_app/core/notification/fcm_notification.dart';
 import 'core/auth/presentation/bloc/auth_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'features/splash_screen.dart';
@@ -13,6 +14,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   final sharedPreferences = await SharedPreferences.getInstance();
   await sharedPreferences.setString('notification', message.data['content']);
+  print(message.data['content']);
 }
 
 void main() async {
@@ -20,6 +22,7 @@ void main() async {
   await Firebase.initializeApp();
   di.init();
   await di.sl.allReady();
+  await fcmInit();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MainApp());
 }

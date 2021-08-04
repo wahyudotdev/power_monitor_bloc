@@ -12,9 +12,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreen extends State<SplashScreen> {
+  void sharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    final String? notification = prefs.getString('notification');
+    print(notification);
+  }
+
   @override
   void initState() {
     super.initState();
+    sharedPrefs();
   }
 
   @override
@@ -26,6 +34,7 @@ class _SplashScreen extends State<SplashScreen> {
         }
         if (state is UserAuthenticated) {
           SharedPreferences.getInstance().then((value) {
+            print(value.getString('notification'));
             if (value.getString('notification') != null) {
               Future.delayed(
                   Duration(seconds: 2),

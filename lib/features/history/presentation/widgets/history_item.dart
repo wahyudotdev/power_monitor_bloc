@@ -17,7 +17,7 @@ class HistoryItem extends StatelessWidget {
   }
 
   String formattedTime(DateTime time) {
-    final f = DateFormat('mm:ss');
+    final f = DateFormat('hh:mm');
     return f.format(time);
   }
 
