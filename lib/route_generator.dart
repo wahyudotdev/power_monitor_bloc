@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'core/auth/presentation/pages/login_page.dart';
-import 'features/history/presentation/pages/history_detail_page.dart';
+import 'features/home/presentation/pages/detail_page.dart';
 import 'features/menu_page.dart';
 import 'features/register/presentation/pages/register_page.dart';
 
@@ -17,7 +17,7 @@ class RouteGenerator {
       case '/menu':
         return MaterialPageRoute(builder: (_) => MenuPage());
       case '/detail':
-        return MaterialPageRoute(builder: (_) => HistoryDetailPage());
+        return MaterialPageRoute(builder: (_) => DetailPage());
       default:
         return _errorRoute();
     }

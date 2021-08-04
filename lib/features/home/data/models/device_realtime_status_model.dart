@@ -55,4 +55,6 @@ class DeviceRealtimStatusModel extends DeviceRealtimeStatus {
         currentTh: currentTh,
         powerTh: powerTh,
       );
+
+  fromSnapshotList(Map<dynamic, dynamic> list) {}
 }

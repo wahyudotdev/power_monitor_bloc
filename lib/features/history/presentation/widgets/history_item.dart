@@ -1,20 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:power_monitor_app/features/history/domain/entities/history.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
+import 'package:intl/intl.dart';
 
 class HistoryItem extends StatelessWidget {
   final VoidCallback? action;
+  final History history;
+  const HistoryItem({Key? key, this.action, required this.history})
+      : super(key: key);
 
-  const HistoryItem({Key? key, this.action}) : super(key: key);
+  String formattedDate(DateTime dateTime) {
+    final f = DateFormat('dd MMM yyyy');
+    return f.format(dateTime);
+  }
 
-  void pr() {
-    print('tes');
+  String formattedTime(DateTime time) {
+    final f = DateFormat('mm:ss');
+    return f.format(time);
   }
 
   Widget _historyItem(BuildContext context) {
     return InkWell(
-      onTap: action,
+      onTap: null,
       child: Container(
         margin: EdgeInsets.only(
           left: View.x * 5,
@@ -59,16 +68,16 @@ class HistoryItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '12.48',
+              formattedTime(history.time),
               style: TextStyle(
-                fontSize: View.x * 7,
+                fontSize: View.x * 6,
                 color: Colors.white,
               ),
             ),
             Text(
-              '31 Jul 2021',
+              formattedDate(history.time),
               style: TextStyle(
-                fontSize: View.x * 3.5,
+                fontSize: View.x * 3,
                 color: Colors.white,
               ),
             ),

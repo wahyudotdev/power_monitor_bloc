@@ -3,24 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
+import 'package:power_monitor_app/core/auth/presentation/widgets/forgot_password_dialog.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 
 class LoginPage extends StatelessWidget {
-  final _email = TextEditingController(text: 'feby@gmail.com');
-  final _password = TextEditingController(text: 'kenari123');
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
   Widget _title() {
     return SliverToBoxAdapter(
-      child: Stack(
-        children: [
-          Container(
-            color: AppColors.primary,
-            padding: EdgeInsets.all(View.x * 10),
-            alignment: Alignment.bottomCenter,
-            child: SvgPicture.asset('assets/logo.svg'),
-          )
-        ],
+      child: Container(
+        color: AppColors.primary,
+        padding: EdgeInsets.all(View.x * 10),
+        alignment: Alignment.bottomCenter,
+        child: SvgPicture.asset('assets/logo.svg'),
       ),
     );
   }
@@ -44,7 +41,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(
         left: View.x * 5,
-        top: View.y * 3,
+        top: View.y * 1,
         right: View.x * 5,
       ),
       width: double.infinity,
@@ -63,7 +60,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(
         left: View.x * 5,
-        top: View.y * 3,
+        top: View.y * 1,
         right: View.x * 5,
       ),
       width: double.infinity,
@@ -163,7 +160,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _forgotPassword() {
+  Widget _forgotPassword(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(
@@ -171,7 +168,16 @@ class LoginPage extends StatelessWidget {
         top: View.x * 5,
         bottom: View.y * 10,
       ),
-      child: Text('Lupa password?'),
+      child: InkWell(
+        onTap: () => showDialog(
+            context: context, builder: (context) => ForgotPasswordDialog()),
+        child: Text(
+          'Reset password',
+          style: TextStyle(
+            color: AppColors.button,
+          ),
+        ),
+      ),
     );
   }
 
@@ -195,10 +201,7 @@ class LoginPage extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(View.x * 5),
-                  topRight: Radius.circular(View.x * 5),
-                ),
+                borderRadius: BorderRadius.circular(View.x * 5),
               ),
               child: Column(
                 children: [
@@ -207,7 +210,7 @@ class LoginPage extends StatelessWidget {
                   _passwordField(),
                   _loginButton(context),
                   _registerButton(context),
-                  _forgotPassword(),
+                  _forgotPassword(context),
                 ],
               ),
             ),
@@ -220,15 +223,32 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     View().init(context);
-    return Container(
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: CustomScrollView(
-            slivers: [
-              _title(),
-              _form(context),
-            ],
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoading) {
+          EasyLoading.show();
+        }
+        if (state is EmaiSent) {
+          EasyLoading.dismiss();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
+        }
+        if (state is EmailNotSent) {
+          EasyLoading.dismiss();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
+      child: Container(
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: AppColors.primary,
+            body: CustomScrollView(
+              slivers: [
+                _title(),
+                _form(context),
+              ],
+            ),
           ),
         ),
       ),

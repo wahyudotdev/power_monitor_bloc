@@ -33,4 +33,16 @@ class DeviceRealtimeRepositoryImpl implements DeviceRealtimeRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> turnOffAll() async {
+    try {
+      await db.reference().child('/realtime').child('load1').set(false);
+      await db.reference().child('/realtime').child('load2').set(false);
+      await db.reference().child('/realtime').child('load3').set(false);
+      return Right(null);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
 }

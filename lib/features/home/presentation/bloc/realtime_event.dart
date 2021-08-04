@@ -36,3 +36,5 @@ class SetMaxValueEvent extends RealtimeEvent {
 
   SetMaxValueEvent({required this.path, required this.value});
 }
+
+class TurnOffAllEvent extends RealtimeEvent {}

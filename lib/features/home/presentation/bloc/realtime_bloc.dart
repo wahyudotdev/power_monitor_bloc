@@ -43,6 +43,10 @@ class RealtimeBloc extends Bloc<RealtimeEvent, RealtimeState> {
     if (event is SetMaxValueEvent) {
       await repository.setMaxValue(path: event.path, value: event.value);
     }
+
+    if (event is TurnOffAllEvent) {
+      await repository.turnOffAll();
+    }
   }
 
   @override

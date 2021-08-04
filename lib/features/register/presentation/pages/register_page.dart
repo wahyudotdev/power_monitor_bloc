@@ -285,10 +285,7 @@ class RegisterPage extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(View.x * 5),
-                      topRight: Radius.circular(View.x * 5),
-                    ),
+                    borderRadius: BorderRadius.circular(View.x * 5),
                   ),
                   child: Column(
                     children: [
@@ -318,7 +315,7 @@ class RegisterPage extends StatelessWidget {
       child: Container(
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.primary,
             body: CustomScrollView(
               slivers: [
                 _title(),

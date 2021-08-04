@@ -49,8 +49,12 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   @override
   Future<Either<Failure, void>> forgotPassword({required String email}) async {
     if (await networkInfo.isConnected) {
-      await auth.sendPasswordResetEmail(email: email);
-      return Right(null);
+      try {
+        await auth.sendPasswordResetEmail(email: email);
+        return Right(null);
+      } on FirebaseAuthException {
+        return Left(UserNotFoundFailure());
+      }
     } else {
       return Left(ServerFailure());
     }

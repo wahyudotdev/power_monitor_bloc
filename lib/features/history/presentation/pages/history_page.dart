@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:power_monitor_app/features/history/presentation/bloc/history_bloc.dart';
+import 'package:power_monitor_app/injection_container.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 import '../widgets/history_item.dart';
@@ -35,27 +38,46 @@ class HistoryPage extends StatelessWidget {
   }
 
   Widget _history() {
-    return SliverFixedExtentList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          return HistoryItem(
-              action: () => Navigator.of(context).pushNamed('/detail'));
-        },
-        childCount: 10,
-      ),
-      itemExtent: View.y * 18,
+    return BlocBuilder<HistoryBloc, HistoryState>(
+      builder: (context, state) {
+        print(state);
+        if (state is HistoryInitial) {
+          BlocProvider.of<HistoryBloc>(context).add(LoadHistoryEvent());
+        }
+        if (state is LoadedHistory) {
+          return SliverFixedExtentList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return HistoryItem(
+                    history: state.history[index],
+                    action: () => Navigator.of(context).pushNamed('/detail'));
+              },
+              childCount: state.history.length,
+            ),
+            itemExtent: View.y * 18,
+          );
+        }
+        return SliverToBoxAdapter(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.primary,
-      child: CustomScrollView(
-        slivers: [
-          _title(),
-          _history(),
-        ],
+    return BlocProvider(
+      create: (context) => sl<HistoryBloc>(),
+      child: Container(
+        color: AppColors.primary,
+        child: CustomScrollView(
+          slivers: [
+            _title(),
+            _history(),
+          ],
+        ),
       ),
     );
   }

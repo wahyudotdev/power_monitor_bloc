@@ -1,5 +1,6 @@
 import 'package:power_monitor_app/core/auth/data/repositories/user_auth_repository_impl.dart';
 import 'package:power_monitor_app/core/auth/domain/repositories/user_auth_repository.dart';
+import 'package:power_monitor_app/core/auth/domain/usecases/request_password.dart';
 import 'package:power_monitor_app/core/auth/domain/usecases/usecases.dart';
 import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
 import 'package:power_monitor_app/injection_container.dart';
@@ -9,6 +10,7 @@ void authDi() {
   sl.registerFactory(() => AuthBloc(
       changeName: sl(),
       changePassword: sl(),
+      requestPassword: sl(),
       getUser: sl(),
       signIn: sl(),
       signOut: sl()));
@@ -16,6 +18,7 @@ void authDi() {
   // Usecase
   sl.registerLazySingleton(() => ChangeName(sl()));
   sl.registerLazySingleton(() => ChangePassword(sl()));
+  sl.registerLazySingleton(() => RequestPassword(sl()));
   sl.registerLazySingleton(() => GetUser(sl()));
   sl.registerLazySingleton(() => SignIn(sl()));
   sl.registerLazySingleton(() => SignOut(sl()));

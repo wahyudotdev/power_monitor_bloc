@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:get_it/get_it.dart';
 import 'package:power_monitor_app/core/auth/auth_di.dart';
 import 'package:power_monitor_app/core/network/network_info.dart';
+import 'package:power_monitor_app/features/history/history_di.dart';
 import 'package:power_monitor_app/features/home/home_di.dart';
 
 import 'features/register/register_di.dart';
@@ -23,4 +24,5 @@ void init() {
   authDi();
   registerDi();
   homeDi();
+  historyDi();
 }

@@ -52,3 +52,15 @@ class UpdateFailure extends AuthState {
 
   UpdateFailure({required this.message});
 }
+
+class EmaiSent extends AuthState {
+  final String message;
+
+  EmaiSent({required this.message});
+}
+
+class EmailNotSent extends AuthState {
+  final String message;
+
+  EmailNotSent({required this.message});
+}

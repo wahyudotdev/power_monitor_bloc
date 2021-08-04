@@ -23,3 +23,15 @@ class ChangeNameEvent extends AuthEvent {
 
   ChangeNameEvent({required this.name});
 }
+
+class ChangePasswordEvent extends AuthEvent {
+  final String password;
+
+  ChangePasswordEvent({required this.password});
+}
+
+class ForgotPasswordEvent extends AuthEvent {
+  final String email;
+
+  ForgotPasswordEvent({required this.email});
+}

@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
                             ? state.userAuthInfo.displayName
                             : state is UpdatedProfile
                                 ? state.authInfo.displayName
-                                : '',
+                                : BlocProvider.of<AuthBloc>(context)
+                                    .currentUser!
+                                    .displayName,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: View.x * 6,

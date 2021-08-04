@@ -3,77 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:power_monitor_app/core/auth/presentation/bloc/auth_bloc.dart';
+import 'package:power_monitor_app/features/profile/presentation/widgets/change_name_dialog.dart';
+import 'package:power_monitor_app/features/profile/presentation/widgets/change_password_dialog.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 
 class ProfilePage extends StatelessWidget {
-  Widget _changeNameDialog(BuildContext context) {
-    final name = TextEditingController();
-    return AlertDialog(
-      content: Container(
-        width: double.infinity,
-        height: View.y * 23,
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Masukkan nama',
-              ),
-              controller: name,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: View.y * 3),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.all(View.x * 2),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColors.button,
-                        borderRadius: BorderRadius.circular(View.x * 2),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          BlocProvider.of<AuthBloc>(context)
-                              .add(ChangeNameEvent(name: name.text));
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'Simpan',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.all(View.x * 2),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(View.x * 2),
-                      ),
-                      child: TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text(
-                          'Batal',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _title() {
     return SliverToBoxAdapter(
       child: Container(
@@ -176,13 +111,16 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.person,
               action: () => showDialog(
                 context: context,
-                builder: (context) => _changeNameDialog(context),
+                builder: (context) => ChangeNameDialog(),
               ),
               hint: 'Ubah nama',
             ),
             _profilePageItem(
               icon: Icons.lock,
-              action: () => null,
+              action: () => showDialog(
+                context: context,
+                builder: (context) => ChangePasswordDialog(),
+              ),
               hint: 'Ganti password',
             ),
             _profilePageItem(

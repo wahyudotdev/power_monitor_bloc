@@ -31,3 +31,9 @@ class UserUpdateFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class UserNotFoundFailure extends Failure {
+  static const MESSAGE = 'Pengguna tidak ditemukan';
+  @override
+  List<Object?> get props => [];
+}
