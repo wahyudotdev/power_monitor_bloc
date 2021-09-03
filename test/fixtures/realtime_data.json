@@ -1,0 +1,14 @@
+{
+    "m2m:cin": {
+        "rn": "cin_wtzwL5GJQ3eF2rrw",
+        "ty": 4,
+        "ri": "/antares-cse/cin-wtzwL5GJQ3eF2rrw",
+        "pi": "/antares-cse/cnt-BshJcnSNSzuhZY_Z",
+        "ct": "20210901T222214",
+        "lt": "20210901T222214",
+        "st": 0,
+        "cnf": "text/plain:0",
+        "cs": 58,
+        "con": "{\"type\":\"uplink\",\"port\":1,\"data\":\"30.59, 5.36\",\"counter\":0}"
+    }
+}
