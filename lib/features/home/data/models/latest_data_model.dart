@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:power_monitor_app/features/home/domain/entities/realtime_data.dart';
+import 'package:power_monitor_app/features/home/domain/entities/latest_data.dart';
 
-class RealtimeDataModel extends RealtimeData {
+class LatestDataModel extends LatestData {
   final double tinggiAir;
   final double tekananAir;
   final DateTime waktu;
-  RealtimeDataModel(
+  LatestDataModel(
       {required this.tinggiAir, required this.tekananAir, required this.waktu})
       : super(
           tinggiAir: tinggiAir,
@@ -13,7 +13,7 @@ class RealtimeDataModel extends RealtimeData {
           waktu: waktu,
         );
 
-  factory RealtimeDataModel.fromJsonString(String jsonString) {
+  factory LatestDataModel.fromJsonString(String jsonString) {
     final result = json.decode(jsonString);
     String con = result['m2m:cin']['con'];
     String ct = result['m2m:cin']['ct'];
@@ -27,7 +27,7 @@ class RealtimeDataModel extends RealtimeData {
     String dataString = json.decode(con)['data'];
     double tinggiAir = double.parse(dataString.split(',')[0]);
     double tekananAir = double.parse(dataString.split(',')[1]);
-    return RealtimeDataModel(
+    return LatestDataModel(
       tinggiAir: tinggiAir,
       tekananAir: tekananAir,
       waktu: waktu,

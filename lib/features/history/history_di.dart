@@ -1,3 +1,5 @@
+import 'package:power_monitor_app/features/history/data/datasources/history_remote_datasources.dart';
+
 import 'data/repositories/history_repository_impl.dart';
 import 'domain/repositories/history_repository.dart';
 import 'presentation/bloc/history_bloc.dart';
@@ -9,5 +11,9 @@ void historyDi() {
 
   // Repository
   sl.registerLazySingleton<HistoryRepository>(
-      () => HistoryRepositoryImpl(sl()));
+      () => HistoryRepositoryImpl(rtdb: sl(), remoteDatasource: sl()));
+
+  // Datasource
+  sl.registerLazySingleton<HistoryRemoteDatasource>(
+      () => HistoryRemoteDatasourceImpl(sl()));
 }

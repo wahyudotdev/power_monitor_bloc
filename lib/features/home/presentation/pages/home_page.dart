@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:power_monitor_app/features/home/presentation/bloc/latest_bloc.dart';
 import '../../../../core/auth/presentation/bloc/auth_bloc.dart';
-import '../bloc/realtime_bloc.dart';
-import '../widgets/set_max_dialog.dart';
 import '../../../../injection_container.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/view.dart';
 import '../../../../core/widgets/gauge.dart';
-import '../../../../core/widgets/toggle.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -93,20 +91,8 @@ class _HomePageState extends State<HomePage> {
         onTap: () {
           setState(() {
             selectedBox = symbol;
-            BlocProvider.of<RealtimeBloc>(context)
-                .add(RefreshRealtimeDataEvent());
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Klik tahan untuk setting max $hint'),
-              duration: Duration(milliseconds: 500),
-            ));
           });
         },
-        onLongPress: () => showDialog(
-          context: context,
-          builder: (context) => SetMaxDialog(
-            path: path,
-          ),
-        ),
         child: Container(
           margin: EdgeInsets.all(View.x * 2),
           decoration: BoxDecoration(
@@ -148,42 +134,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _statusBox() {
-    return BlocBuilder<RealtimeBloc, RealtimeState>(
-      builder: (context, state) {
-        return SliverToBoxAdapter(
-          child: Container(
-            height: View.y * 20,
-            margin: EdgeInsets.only(
-              top: View.x * 5,
-              left: View.x * 3,
-              right: View.x * 3,
+    return SliverToBoxAdapter(
+      child: Container(
+        height: View.y * 20,
+        margin: EdgeInsets.only(
+          top: View.x * 5,
+          left: View.x * 3,
+          right: View.x * 3,
+        ),
+        width: double.infinity,
+        child: Row(
+          children: [
+            _statusBoxItem(
+              context: context,
+              symbol: 'CM',
+              hint: 'Tinggi Air',
+              path: 'voltTh',
             ),
-            width: double.infinity,
-            child: Row(
-              children: [
-                _statusBoxItem(
-                  context: context,
-                  symbol: 'V',
-                  hint: 'Tegangan',
-                  path: 'voltTh',
-                ),
-                _statusBoxItem(
-                  context: context,
-                  symbol: 'I',
-                  hint: 'Arus',
-                  path: 'currentTh',
-                ),
-                _statusBoxItem(
-                  context: context,
-                  symbol: 'P',
-                  hint: 'Daya',
-                  path: 'powerTh',
-                ),
-              ],
+            _statusBoxItem(
+              context: context,
+              symbol: 'Pa',
+              hint: 'Tekanan Air',
+              path: 'currentTh',
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 
@@ -207,69 +183,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _gauge() {
-    return BlocBuilder<RealtimeBloc, RealtimeState>(
+    return BlocBuilder<LatestBloc, LatestState>(
       builder: (context, state) {
-        if (state is RealtimeInitial) {
-          BlocProvider.of<RealtimeBloc>(context).add(ListenRealtimeData());
+        if (state is LatestInitial) {
+          BlocProvider.of<LatestBloc>(context).add(GetLatestDataEvent());
         }
-
-        if (state is RealtimeDataLoaded) {
+        if (state is LoadedLatestData) {
           switch (selectedBox) {
-            case 'V':
+            case 'CM':
               return _gaugeWidget(
-                  hint: 'Tegangan',
-                  value: state.data.volt,
-                  maxValue: state.data.voltTh,
-                  notation: 'V');
-            case 'I':
+                  hint: 'Tinggi Air',
+                  value: state.data.tinggiAir,
+                  maxValue: 100,
+                  notation: 'CM');
+            case 'Pa':
               return _gaugeWidget(
-                  hint: 'Arus',
-                  value: state.data.current,
-                  maxValue: state.data.currentTh,
-                  notation: 'A');
-            case 'P':
-              return _gaugeWidget(
-                  hint: 'Daya',
-                  value: state.data.power,
-                  maxValue: state.data.powerTh,
-                  notation: 'w');
+                  hint: 'Tekanan Air',
+                  value: state.data.tekananAir,
+                  maxValue: 10,
+                  notation: 'Pa');
           }
         }
         return _gaugeWidget();
-      },
-    );
-  }
-
-  Widget _lampToggle() {
-    return BlocBuilder<RealtimeBloc, RealtimeState>(
-      builder: (context, state) {
-        return Expanded(
-          flex: 2,
-          child: Container(
-            child: Column(
-              children: [
-                Toggle(
-                  enabled:
-                      state is RealtimeDataLoaded ? state.data.load1 : false,
-                  hint: 'Beban 1',
-                  path: 'load1',
-                ),
-                Toggle(
-                  enabled:
-                      state is RealtimeDataLoaded ? state.data.load2 : false,
-                  hint: 'Beban 2',
-                  path: 'load2',
-                ),
-                Toggle(
-                  enabled:
-                      state is RealtimeDataLoaded ? state.data.load3 : false,
-                  hint: 'Beban 3',
-                  path: 'load3',
-                ),
-              ],
-            ),
-          ),
-        );
       },
     );
   }
@@ -284,7 +219,6 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           children: [
             _gauge(),
-            _lampToggle(),
           ],
         ),
       ),
@@ -294,7 +228,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<RealtimeBloc>(),
+      create: (context) => sl<LatestBloc>(),
       child: Container(
         color: AppColors.primary,
         child: CustomScrollView(

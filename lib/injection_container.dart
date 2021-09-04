@@ -2,6 +2,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'core/auth/auth_di.dart';
 import 'core/network/network_info.dart';
 import 'features/history/history_di.dart';
@@ -17,7 +18,7 @@ void init() {
   sl.registerLazySingleton<DataConnectionChecker>(
       () => DataConnectionChecker());
   sl.registerLazySingleton<FirebaseDatabase>(() => FirebaseDatabase.instance);
-
+  sl.registerLazySingleton<Client>(() => Client());
   // Utils
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
