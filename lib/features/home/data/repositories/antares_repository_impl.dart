@@ -18,4 +18,21 @@ class AntaresRepositoryImpl implements AntaresRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<RealtimeData>>> getHistoryData(
+      {int? numOfResult}) async {
+    try {
+      if (numOfResult != null) {
+        final result =
+            await remoteDatasource.getHistoryData(numOfResult: numOfResult);
+        return Right(result);
+      } else {
+        final result = await remoteDatasource.getHistoryData(numOfResult: 10);
+        return Right(result);
+      }
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

@@ -4,4 +4,6 @@ import 'package:power_monitor_app/features/home/domain/entities/realtime_data.da
 
 abstract class AntaresRepository {
   Future<Either<Failure, RealtimeData>> getRealtimeData();
+  Future<Either<Failure, List<RealtimeData>>> getHistoryData(
+      {int? numOfResult});
 }

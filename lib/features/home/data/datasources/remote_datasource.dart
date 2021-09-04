@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 
 abstract class RemoteDatasource {
   Future<RealtimeData> getRealtimeData();
+  Future<List<RealtimeData>> getHistoryData({required int numOfResult});
 }
 
 class RemoteDatasourceImpl implements RemoteDatasource {
@@ -30,5 +31,11 @@ class RemoteDatasourceImpl implements RemoteDatasource {
       return RealtimeDataModel.fromJsonString(response.body);
     } else
       throw ServerException();
+  }
+
+  @override
+  Future<List<RealtimeData>> getHistoryData({required int numOfResult}) {
+    // TODO: implement getHistoryData
+    throw UnimplementedError();
   }
 }
