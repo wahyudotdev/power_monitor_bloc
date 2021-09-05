@@ -7,12 +7,8 @@ abstract class HistoryEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class _HistoryHasData extends HistoryEvent {
-  final List<History> history;
+class LoadHistoryEvent extends HistoryEvent {
+  final int? numOfData;
 
-  _HistoryHasData({required this.history});
-  @override
-  List<Object> get props => [history];
+  LoadHistoryEvent({this.numOfData});
 }
-
-class LoadHistoryEvent extends HistoryEvent {}

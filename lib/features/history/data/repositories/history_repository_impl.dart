@@ -23,7 +23,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
             await remoteDatasource.getHistoryData(numOfData: numOfData);
         return Right(result);
       } else {
-        final result = await remoteDatasource.getHistoryData(numOfData: 10);
+        final result = await remoteDatasource.getHistoryData(numOfData: 20);
         return Right(result);
       }
     } on ServerException {

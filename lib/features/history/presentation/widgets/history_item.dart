@@ -68,14 +68,14 @@ class HistoryItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              formattedTime(history.time),
+              formattedTime(history.waktu),
               style: TextStyle(
                 fontSize: View.x * 6,
                 color: Colors.white,
               ),
             ),
             Text(
-              formattedDate(history.time),
+              formattedDate(history.waktu),
               style: TextStyle(
                 fontSize: View.x * 3,
                 color: Colors.white,
@@ -132,9 +132,8 @@ class HistoryItem extends StatelessWidget {
         color: Colors.transparent,
         child: Row(
           children: [
-            _dataBoxItem(notation: 'V', value: '220'),
-            _dataBoxItem(notation: 'I', value: '0.5'),
-            _dataBoxItem(notation: 'P', value: '110'),
+            _dataBoxItem(notation: 'cm', value: history.tinggiAir.toString()),
+            _dataBoxItem(notation: 'Pa', value: history.tekananAir.toString()),
           ],
         ),
       ),

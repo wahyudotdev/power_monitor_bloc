@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var selectedBox = 'V';
+  var selectedBox = 'CM';
 
   Widget _welcomeMessage() {
     return BlocBuilder<AuthBloc, AuthState>(
@@ -186,9 +186,10 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<LatestBloc, LatestState>(
       builder: (context, state) {
         if (state is LatestInitial) {
-          BlocProvider.of<LatestBloc>(context).add(GetLatestDataEvent());
+          BlocProvider.of<LatestBloc>(context).add(LoadLatestDataEvent());
         }
         if (state is LoadedLatestData) {
+          print(state.data);
           switch (selectedBox) {
             case 'CM':
               return _gaugeWidget(
@@ -229,15 +230,23 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<LatestBloc>(),
-      child: Container(
-        color: AppColors.primary,
-        child: CustomScrollView(
-          slivers: [
-            _welcomeMessage(),
-            _statusBox(),
-            _mainStatus(),
-          ],
-        ),
+      child: BlocBuilder<LatestBloc, LatestState>(
+        builder: (context, state) {
+          return RefreshIndicator(
+            onRefresh: () async =>
+                BlocProvider.of<LatestBloc>(context).add(LoadLatestDataEvent()),
+            child: Container(
+              color: AppColors.primary,
+              child: CustomScrollView(
+                slivers: [
+                  _welcomeMessage(),
+                  _statusBox(),
+                  _mainStatus(),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

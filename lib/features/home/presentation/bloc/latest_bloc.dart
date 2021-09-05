@@ -17,7 +17,7 @@ class LatestBloc extends Bloc<LatestEvent, LatestState> {
   Stream<LatestState> mapEventToState(
     LatestEvent event,
   ) async* {
-    if (event is GetLatestDataEvent) {
+    if (event is LoadLatestDataEvent) {
       yield LoadingLatestData();
       final result = await getLatestData(NoParams());
       yield* result.fold((failure) async* {

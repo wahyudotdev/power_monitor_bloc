@@ -9,6 +9,10 @@ abstract class HistoryState extends Equatable {
 
 class HistoryInitial extends HistoryState {}
 
+class LoadingHistory extends HistoryState {}
+
+class LoadErrorHistory extends HistoryState {}
+
 class LoadedHistory extends HistoryState {
   final List<History> history;
 

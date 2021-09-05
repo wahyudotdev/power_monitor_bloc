@@ -29,11 +29,11 @@ class HistoryRemoteDatasourceImpl implements HistoryRemoteDatasource {
       },
     );
     if (response.statusCode == 200) {
-      List<String> urlList = json.decode(response.body)['m2m:uril'];
+      List<dynamic> urlList = json.decode(response.body)['m2m:uril'];
       List<History> histories = [];
       for (var i = 0; i < urlList.length; i++) {
         final history = await client.get(
-          Uri.parse(urlList[i]),
+          Uri.parse(ANTARES_BASE_URL + urlList[i].toString()),
           headers: {
             'X-M2M-Origin': ANTARES_KEY,
             'Content-Type': 'application/json',

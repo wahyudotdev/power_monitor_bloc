@@ -7,4 +7,4 @@ abstract class LatestEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetLatestDataEvent extends LatestEvent {}
+class LoadLatestDataEvent extends LatestEvent {}

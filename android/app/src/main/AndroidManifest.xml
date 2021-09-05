@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.power_monitor_app">
    <application
-        android:label="Power Monitoring"
+        android:label="Monitoring Banjir"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

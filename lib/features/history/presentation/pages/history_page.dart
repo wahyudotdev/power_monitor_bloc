@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import '../bloc/history_bloc.dart';
 import '../../../../injection_container.dart';
@@ -44,7 +45,15 @@ class HistoryPage extends StatelessWidget {
         if (state is HistoryInitial) {
           BlocProvider.of<HistoryBloc>(context).add(LoadHistoryEvent());
         }
+        if (state is LoadingHistory) {
+          EasyLoading.show();
+        }
+        if (state is LoadErrorHistory) {
+          print('Load Error');
+          EasyLoading.dismiss();
+        }
         if (state is LoadedHistory) {
+          EasyLoading.dismiss();
           return SliverFixedExtentList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -70,14 +79,22 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<HistoryBloc>(),
-      child: Container(
-        color: AppColors.primary,
-        child: CustomScrollView(
-          slivers: [
-            _title(),
-            _history(),
-          ],
-        ),
+      child: BlocBuilder<HistoryBloc, HistoryState>(
+        builder: (context, state) {
+          return RefreshIndicator(
+            onRefresh: () async =>
+                BlocProvider.of<HistoryBloc>(context).add(LoadHistoryEvent()),
+            child: Container(
+              color: AppColors.primary,
+              child: CustomScrollView(
+                slivers: [
+                  _title(),
+                  _history(),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
