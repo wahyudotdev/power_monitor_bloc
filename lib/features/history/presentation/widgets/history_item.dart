@@ -132,9 +132,11 @@ class HistoryItem extends StatelessWidget {
         color: Colors.transparent,
         child: Row(
           children: [
-            _dataBoxItem(notation: 'V', value: '220'),
-            _dataBoxItem(notation: 'I', value: '0.5'),
-            _dataBoxItem(notation: 'P', value: '110'),
+            _dataBoxItem(notation: 'V', value: history.volt.toStringAsFixed(2)),
+            _dataBoxItem(
+                notation: 'I', value: history.current.toStringAsFixed(2)),
+            _dataBoxItem(
+                notation: 'P', value: history.power.toStringAsFixed(2)),
           ],
         ),
       ),
